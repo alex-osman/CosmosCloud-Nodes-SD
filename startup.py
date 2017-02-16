@@ -11,7 +11,7 @@ import json
 from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer
 
 #Dedicated port
-DISCOVERY_PORT = os.environ['DISCOVERY_PORT']
+DISCOVERY_PORT = os.getenv('DISCOVERY_PORT', 8888)
 
 #Sends a request to the server
 def requestModules(coreserver):
