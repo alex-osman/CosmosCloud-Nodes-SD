@@ -19,17 +19,20 @@ def parseModules(jsonModules):
         print "Starting ", module
         subprocess.Popen(["python", module + "Server.py"])
 
+
 # Sends a request to the server
 def requestModules(coreserver):
     try:
         url = "http://" + coreserver + ":" + DISCOVERY_PORT + "/api/connect"
         jsonModules = urllib2.urlopen(url).read()
+        print jsonModules
         # No modules yet, wait for settings
-        if jsonModules == "wait":
-            pass
-        else:
+        if jsonModules != "wait":
             parseModules(jsonModules)
-        startServer()
+            startServer()
+        else:
+            time.sleep(5)
+            requestModules(coreserver);
     except:
         time.sleep(5)
         requestModules(coreserver)
