@@ -215,6 +215,18 @@ class rgb:
                 self.set((self.brightness[0], self.brightness[1], x))
         self.set(bright)
 
+    #Need to test on real pi
+    def changeStyle(self, style):
+    	if (style == "on"):
+    		print "Turning on"
+    	elif (style == "off"):
+    		print "Turning off"
+    	elif (style == "pulse"):
+    		print "pulsing"
+    	else:
+    		print "Unknown style"
+
+
 
 class Outlet:
     pin = None
