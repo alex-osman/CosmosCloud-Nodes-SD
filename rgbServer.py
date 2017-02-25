@@ -7,16 +7,19 @@ isPi = False
 if isPi:
     import SmartHome
 PORT_NUMBER = 8081
+style = "off"
+colors = [0, 0, 0]
 
-
-def changeColor(rgb):
+def changeColor(colors_):
+    color = colors_
     if isPi:
-        rgb.changeColor(rgb)
+        rgb.changeColor(color)
     else:
-        print("rgb::color ", rgb)
+        print("rgb::color ", color)
 
 
-def changeStyle(style):
+def changeStyle(style_):
+    style = style_
     if isPi:
         rgb.changeStyle(style)
     else:
@@ -48,7 +51,7 @@ class myHandler(BaseHTTPRequestHandler):
         else:
             print "Unknown path"
 
-        self.wfile.write("Okay")
+        self.wfile.write(style + "\n" + ', '.join(map(str, colors)))
         # self.wfile.write(rgb.brightness)
         return
 
