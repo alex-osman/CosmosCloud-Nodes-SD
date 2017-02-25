@@ -32,7 +32,7 @@ def requestModules(coreserver):
             startServer()
         else:
             time.sleep(5)
-            requestModules(coreserver);
+            requestModules(coreserver)
     except:
         time.sleep(5)
         requestModules(coreserver)

@@ -1,11 +1,28 @@
 #!/usr/bin/python
 
-import SmartHome
 from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer
 from os import curdir, sep
 from time import time
 
+isPi = False
+
+if isPi:
+	import SmartHome
 PORT_NUMBER = 8081
+
+
+def changeColor(rgb):
+	if isPi:
+		rgb.changeColor(rgb)
+	else:
+		print("rgb::color ", rgb)
+
+def changeStyle(style):
+	if isPi:
+		rgb.changeStyle(style)
+	else:
+		print("rgb::style", style)
+
 
 #This handles HTTP Requests
 class myHandler(BaseHTTPRequestHandler):
@@ -14,43 +31,36 @@ class myHandler(BaseHTTPRequestHandler):
 		self.send_response(200)
 		self.send_header('Content-type', 'text/html')
 		self.end_headers()
-		print "Looking at ", self.path
-		#print self.client_address
-		#/on
-		#/oncolor
-		#/off
-		print self.path[1:4]
-		if (self.path[1:3] == "on"):
-			try:
-				if (self.path[3:6] == "red"):
-					rgb.on("red")
-				elif (self.path[3:8] == "green"):
-					rgb.on("green")
-				elif (self.path[3:7] == "blue"):
-					rgb.on("blue")
-				else:
-					rgb.on("white")
-			except:
-				rgb.on("white")
-		elif (self.path[1:4] == "off"):
-			try:
-				rgb.off()
-			except:
-				rgb.off()
+		
+		#Remove the leading '/'
+		self.path = self.path[1:]
+
+		#/{style}
+		#/{r}/{g}/{b}
+		#/{style}/{r}/{g}/{b}
+		args = self.path.split('/')
+		if len(args) == 1:
+			changeStyle(args[0])
+		elif len(args) == 3:
+			changeColor([args[0], args[1], args[2]])
+		elif len(args) == 4:
+			changeStyle(args[0])
+			changeColor([args[1], args[2], args[3]])
 		else:
-			red = self.path[1:3]
-			green = self.path[3:5]
-			blue = self.path[5:7]
-			rgb.change([int(red), int(green), int(blue)])
-		self.wfile.write(rgb.brightness)
+			print "Unknown path"
+
+
+		self.wfile.write("Okay");
+		#self.wfile.write(rgb.brightness)
 		return
 
 try:
 	#Create web server and define the request handler
 	server = HTTPServer(('', PORT_NUMBER), myHandler)
 	print 'Started httpserver on port ' , PORT_NUMBER
-	gpio = SmartHome.Gpio()
-	rgb = SmartHome.rgb([26, 19, 13])	
+	if isPi:
+		gpio = SmartHome.Gpio()
+		rgb = SmartHome.rgb([26, 19, 13])	
 	server.serve_forever()
 
 except KeyboardInterrupt:
