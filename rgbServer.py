@@ -10,6 +10,7 @@ PORT_NUMBER = 8081
 style = "off"
 colors = [0, 0, 0]
 
+
 def changeColor(colors_):
     color = colors_
     if isPi:
