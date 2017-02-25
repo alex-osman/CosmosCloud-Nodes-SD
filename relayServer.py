@@ -83,8 +83,8 @@ class myHandler(BaseHTTPRequestHandler):
                 relayOn(1)
             else:
                 relayOn(0)
-                relayOn(1)    
-                
+                relayOn(1)
+
         elif (action == "off"):
             if (channel == "0"):
                 relayOff(0)
