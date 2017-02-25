@@ -12,14 +12,16 @@ colors = [0, 0, 0]
 
 
 def changeColor(colors_):
-    color = colors_
+    global colors
+    colors = colors_
     if isPi:
-        rgb.changeColor(color)
+        rgb.changeColor(colors)
     else:
-        print("rgb::color ", color)
+        print("rgb::color ", colors)
 
 
 def changeStyle(style_):
+    global style
     style = style_
     if isPi:
         rgb.changeStyle(style)
