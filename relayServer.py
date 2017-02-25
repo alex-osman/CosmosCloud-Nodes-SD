@@ -70,35 +70,36 @@ class myHandler(BaseHTTPRequestHandler):
         # sample path: /toggle/1 or /on/1
 
         action = self.path.split("/")[1]
-        channel = self.path.split("/")[2]
+        channel = None
+        try:
+            channel = self.path.split("/")[2]
+        except:
+            pass
 
         if (action == "on"):
-            try:
-                if (channel == "0"):
-                    relayOn(0)
-                else:
-                    relayOn(1)
-            except:
+            if (channel == "0"):
                 relayOn(0)
+            elif (channel == "1"):
                 relayOn(1)
+            else:
+                relayOn(0)
+                relayOn(1)    
+                
         elif (action == "off"):
-            try:
-
-                if (channel == "0"):
-                    relayOff(0)
-                elif (channel == "1"):
-                    relayOff(1)
-            except:
+            if (channel == "0"):
+                relayOff(0)
+            elif (channel == "1"):
+                relayOff(1)
+            else:
                 relayOff(0)
                 relayOff(1)
 
         elif (action == "toggle"):
-            try:
-                if (channel == "0"):
-                    relayToggle(0)
-                elif (channel == "1"):
-                    relayToggle(1)
-            except:
+            if (channel == "0"):
+                relayToggle(0)
+            elif (channel == "1"):
+                relayToggle(1)
+            else:
                 relayToggle(0)
                 relayToggle(1)
         else:
