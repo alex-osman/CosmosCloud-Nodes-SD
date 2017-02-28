@@ -1,5 +1,6 @@
 #!/usr/bin/python
 
+import json
 from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer
 
 isPi = False
@@ -34,7 +35,7 @@ class myHandler(BaseHTTPRequestHandler):
     # GET Requests
     def do_GET(self):
         self.send_response(200)
-        self.send_header('Content-type', 'text/html')
+        self.send_header('Content-type', 'application/json')
         self.end_headers()
 
         # Remove the leading '/'
@@ -54,7 +55,7 @@ class myHandler(BaseHTTPRequestHandler):
         else:
             print "Unknown path"
 
-        self.wfile.write(style + "\n" + ', '.join(map(str, colors)))
+        self.wfile.write("{\n\tstyle: '" + style + "',\n\trgb: [" + ', '.join(map(str, colors)) + "]\n}\n")
         # self.wfile.write(rgb.brightness)
         return
 
