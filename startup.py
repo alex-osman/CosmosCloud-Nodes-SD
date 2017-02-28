@@ -14,10 +14,12 @@ DISCOVERY_PORT = os.getenv('DISCOVERY_PORT', '8888')
 
 
 def parseModules(jsonModules):
+    print jsonModules;
     modules = json.loads(jsonModules)
+    print modules
     for module in modules:
-        print "Starting ", module
-        subprocess.Popen(["python", module + "Server.py"])
+	print "Starting ", module['type']
+        subprocess.Popen(["python", module['type'] + "Server.py"])
 
 
 # Sends a request to the server
@@ -25,7 +27,6 @@ def requestModules(coreserver):
     try:
         url = "http://" + coreserver + ":" + DISCOVERY_PORT + "/api/connect"
         jsonModules = urllib2.urlopen(url).read()
-        print jsonModules
         # No modules yet, wait for settings
         if jsonModules != "wait":
             parseModules(jsonModules)

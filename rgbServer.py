@@ -22,9 +22,17 @@ def changeColor(colors_):
 
 def changeStyle(style_):
     global style
+    global colors
+    print "style: ", style_
     style = style_
     if isPi:
-        rgb.changeStyle(style)
+	if style == 'off':
+            print "Turning off!"
+            rgb.off()
+        elif style == 'pulse':
+            pass #must implement pulse
+        elif style == 'on':
+            rgb.changeColor(colors)
     else:
         print("rgb::style", style)
 
@@ -47,10 +55,10 @@ class myHandler(BaseHTTPRequestHandler):
         if len(args) == 1:
             changeStyle(args[0])
         elif len(args) == 3:
-            changeColor([args[0], args[1], args[2]])
+            changeColor([int(args[0]), int(args[1]), int(args[2])])
         elif len(args) == 4:
             changeStyle(args[0])
-            changeColor([args[1], args[2], args[3]])
+            changeColor([int(args[1]), int(args[2]), int(args[3])])
         else:
             print "Unknown path"
 
