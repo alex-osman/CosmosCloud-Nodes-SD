@@ -1,6 +1,5 @@
 #!/usr/bin/python
 
-import json
 from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer
 
 isPi = False
@@ -55,7 +54,8 @@ class myHandler(BaseHTTPRequestHandler):
         else:
             print "Unknown path"
 
-        self.wfile.write("{\n\tstyle: '" + style + "',\n\trgb: [" + ', '.join(map(str, colors)) + "]\n}\n")
+        self.wfile.write("{\n\tstyle: '" + style + "',\n\trgb: [" +
+                         ', '.join(map(str, colors)) + "]\n}\n")
         # self.wfile.write(rgb.brightness)
         return
 
