@@ -3,7 +3,7 @@
 import os
 from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer
 
-isPi = os.getenv('IS_PI', False)
+isPi = os.getenv('IS_PI', False) is not False
 
 
 if isPi:
