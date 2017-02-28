@@ -1,9 +1,10 @@
 #!/usr/bin/python
 
+import os
 from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer
 
 # Set pi to false when Pi is unavailable
-isPi = False
+isPi = os.getenv('IS_PI', False) is not False
 
 # Import the smarthome module when if Pi is on
 if isPi is True:

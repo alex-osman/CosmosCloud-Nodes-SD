@@ -1,8 +1,10 @@
 #!/usr/bin/python
 
+import os
 from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer
 
-isPi = False
+isPi = os.getenv('IS_PI', False)
+
 
 if isPi:
     import SmartHome
