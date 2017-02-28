@@ -28,11 +28,11 @@ def changeStyle(style_):
     print "style: ", style_
     style = style_
     if isPi:
-	if style == 'off':
+        if style == 'off':
             print "Turning off!"
             rgb.off()
         elif style == 'pulse':
-            pass #must implement pulse
+            pass  # must implement pulse
         elif style == 'on':
             rgb.changeColor(colors)
     else:
