@@ -135,8 +135,8 @@ class Relay(Module):
     def status(self):
         status = ""
         for x in range(len(self.outlets)):
-            status = status + " " + str(self.outlets[x].getStatus())
-        return status
+            status = status + ", " + str(self.outlets[x].getStatus()).lower()
+        return "[" + status[2:] + "]"
 
 
 class rgb:

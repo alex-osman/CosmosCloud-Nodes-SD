@@ -109,7 +109,7 @@ class myHandler(BaseHTTPRequestHandler):
         if isPi is False:
             self.wfile.write("Pi is False!")
         else:
-            self.wfile.write("Relay Status: " + relay.status())
+            self.wfile.write(relay.status())
         return
 
 
