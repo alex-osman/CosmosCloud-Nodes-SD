@@ -13,19 +13,11 @@ DISCOVERY_PORT = os.getenv('DISCOVERY_PORT', '8888')
 
 
 def parseModules(jsonModules):
-<<<<<<< HEAD
     print jsonModules
     modules = json.loads(jsonModules)
     print modules
     for module in modules:
         print "Starting ", module['type']
-=======
-    print jsonModules;
-    modules = json.loads(jsonModules)
-    print modules
-    for module in modules:
-	print "Starting ", module['type']
->>>>>>> 2858e835591f2b702d4944408af27c276907f0e2
         subprocess.Popen(["python", module['type'] + "Server.py"])
 
 
@@ -134,4 +126,4 @@ else:
             else:
                 pass
             time.sleep(2)
-# Requires `arp` command and `nc` command
+            # Requires `arp` command and `nc` command

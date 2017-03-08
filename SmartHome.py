@@ -188,19 +188,11 @@ class rgb:
             self.update()
 
     def changeColor(self, bright):
-<<<<<<< HEAD
         col = []
         col.append(int((255 - bright[0]) / 255.0 * 100.0))
         col.append(int((255 - bright[1]) / 255.0 * 100.0))
         col.append(int((255 - bright[2]) / 255.0 * 100.0))
         bright = col
-=======
-	col = []
-	col.append(int((255 - bright[0]) / 255.0 * 100.0))
-	col.append(int((255 - bright[1]) / 255.0 * 100.0))
-	col.append(int((255 - bright[2]) / 255.0 * 100.0))
-	bright = col;
->>>>>>> 2858e835591f2b702d4944408af27c276907f0e2
 
         if (bright[0] < self.brightness[0]):
             for x in range(self.brightness[0], bright[0], -1):

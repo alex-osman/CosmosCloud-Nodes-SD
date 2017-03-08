@@ -1,14 +1,7 @@
 #!/usr/bin/python
 
-import os
 from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer
-<<<<<<< HEAD
 from relayFunctions import relayToggle, relayOff, relayOn, isPi
-=======
-
-# Set pi to false when Pi is unavailable
-isPi = os.getenv('IS_PI', False) is not False
->>>>>>> 2858e835591f2b702d4944408af27c276907f0e2
 
 # Import the smarthome module when if Pi is on
 if isPi is True:
@@ -75,15 +68,8 @@ class myHandler(BaseHTTPRequestHandler):
         else:
             print ("none")
 
-<<<<<<< HEAD
         # if isPi is True:
         #     self.wfile.write("Relay Status: " + relay.status())
-=======
-        if isPi is False:
-            self.wfile.write("Pi is False!")
-        else:
-            self.wfile.write(relay.status())
->>>>>>> 2858e835591f2b702d4944408af27c276907f0e2
         return
 
 
