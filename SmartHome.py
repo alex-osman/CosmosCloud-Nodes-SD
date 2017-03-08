@@ -1,5 +1,6 @@
 import RPi.GPIO as GPIO
 import time
+
 GPIO.setwarnings(False)
 
 
@@ -67,7 +68,7 @@ class LEDMatrix(Module):
         for x in range(3):
             self.cathodes.append(Pin(pinNums[x]))
             self.cathodes[x].turnOn()
-            self.annodes.append(Pin(pinNums[x+3]))
+            self.annodes.append(Pin(pinNums[x + 3]))
 
     def getPin(self, x):
         if x < 3:
@@ -187,11 +188,11 @@ class rgb:
             self.update()
 
     def changeColor(self, bright):
-	col = []
-	col.append(int((255 - bright[0]) / 255.0 * 100.0))
-	col.append(int((255 - bright[1]) / 255.0 * 100.0))
-	col.append(int((255 - bright[2]) / 255.0 * 100.0))
-	bright = col;
+        col = []
+        col.append(int((255 - bright[0]) / 255.0 * 100.0))
+        col.append(int((255 - bright[1]) / 255.0 * 100.0))
+        col.append(int((255 - bright[2]) / 255.0 * 100.0))
+        bright = col
 
         if (bright[0] < self.brightness[0]):
             for x in range(self.brightness[0], bright[0], -1):
@@ -253,7 +254,7 @@ class Outlet:
 
     def toggle(self):
         print("toggling " + str(self.status))
-        if(self.status):
+        if (self.status):
             self.turnOff()
         else:
             self.turnOn()

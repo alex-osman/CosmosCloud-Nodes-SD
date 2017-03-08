@@ -8,17 +8,16 @@ import urllib2
 import json
 from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer
 
-
 # Dedicated port
 DISCOVERY_PORT = os.getenv('DISCOVERY_PORT', '8888')
 
 
 def parseModules(jsonModules):
-    print jsonModules;
+    print jsonModules
     modules = json.loads(jsonModules)
     print modules
     for module in modules:
-	print "Starting ", module['type']
+        print "Starting ", module['type']
         subprocess.Popen(["python", module['type'] + "Server.py"])
 
 
