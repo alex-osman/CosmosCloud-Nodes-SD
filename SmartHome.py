@@ -135,8 +135,8 @@ class Relay(Module):
     def status(self):
         status = ""
         for x in range(len(self.outlets)):
-            status = status + " " + str(self.outlets[x].getStatus())
-        return status
+            status = status + ", " + str(self.outlets[x].getStatus()).lower()
+        return "[" + status[2:] + "]"
 
 
 class rgb:
@@ -167,7 +167,7 @@ class rgb:
         self.update()
 
     def off(self):
-        self.change([100, 100, 100])
+        self.changeColor([0, 0, 0])
 
     def update(self):
         self.pins[0].start(self.brightness[0])
@@ -187,6 +187,12 @@ class rgb:
             self.update()
 
     def changeColor(self, bright):
+	col = []
+	col.append(int((255 - bright[0]) / 255.0 * 100.0))
+	col.append(int((255 - bright[1]) / 255.0 * 100.0))
+	col.append(int((255 - bright[2]) / 255.0 * 100.0))
+	bright = col;
+
         if (bright[0] < self.brightness[0]):
             for x in range(self.brightness[0], bright[0], -1):
                 time.sleep(0.01)
