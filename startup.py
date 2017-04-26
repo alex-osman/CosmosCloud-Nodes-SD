@@ -10,7 +10,7 @@ from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer
 
 # Dedicated port
 DISCOVERY_PORT = os.getenv('DISCOVERY_PORT', '8888')
-
+print DISCOVERY_PORT
 
 def parseModules(jsonModules):
     print jsonModules
@@ -110,7 +110,7 @@ else:
             try:
                 print host
                 # Netcat the host and check for success
-                if not hostFound and netcat(host).find("succeeded!") != -1:
+                if not hostFound and (netcat(host).find("succeeded!") != -1 or netcat(host).find("open") != -1):
                     # TODO: Check that this is not a random server
                     hostFound = True
                     print("The Cloud is located at %s" % (host))
