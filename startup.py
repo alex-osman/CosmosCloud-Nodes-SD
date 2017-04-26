@@ -9,7 +9,7 @@ import json
 from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer
 
 # Dedicated port
-DISCOVERY_PORT = os.getenv('DISCOVERY_PORT', '8888')
+DISCOVERY_PORT = os.getenv('DISCOVERY_PORT', '4200')
 print DISCOVERY_PORT
 
 def parseModules(jsonModules):
