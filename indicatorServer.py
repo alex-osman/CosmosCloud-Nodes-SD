@@ -3,10 +3,11 @@
 from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer
 from indicatorFunctions import changeColor, changeStyle, isPi
 
+if isPi:
+    import SmartHome
 PORT_NUMBER = 8081
 style = "off"
 colors = [0, 0, 0]
-
 
 
 # This handles HTTP Requests
