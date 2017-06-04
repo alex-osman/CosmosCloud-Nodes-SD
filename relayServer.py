@@ -16,7 +16,7 @@ class myHandler(BaseHTTPRequestHandler):
         self.send_response(200)
         self.send_header('Content-type', 'text/html')
         self.end_headers()
-        print self.path
+        print (self.path)
         relay.toggle(0)
         relay.toggle(1)
         self.wfile.write("{status:\"" + relay.status() + "\"")
@@ -28,7 +28,7 @@ class myHandler(BaseHTTPRequestHandler):
         self.send_response(200)
         self.send_header('Content-type', 'text/html')
         self.end_headers()
-        print "Looking at ", self.path
+        print ("Looking at ", self.path)
 
         # sample path: /toggle/1 or /on/1
 

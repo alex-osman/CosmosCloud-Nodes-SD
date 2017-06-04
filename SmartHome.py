@@ -119,7 +119,8 @@ class Relay(Module):
         self.outlets[num].turnOff()
 
     def toggle(self, num):
-        print "Toggling ", num
+        print
+        "Toggling ", num
         self.outlets[num].toggle()
 
     def flash(self, num):
@@ -225,13 +226,13 @@ class rgb:
     # Need to test on real pi
     def changeStyle(self, style):
         if (style == "on"):
-            print "Turning on"
+            print("Turning on")
         elif (style == "off"):
-            print "Turning off"
+            print("Turning off")
         elif (style == "pulse"):
-            print "pulsing"
+            print("pulsing")
         else:
-            print "Unknown style"
+            print("Unknown style")
 
 
 class Outlet:

@@ -10,14 +10,15 @@ from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer
 
 # Dedicated port
 DISCOVERY_PORT = os.getenv('DISCOVERY_PORT', '4200')
-print DISCOVERY_PORT
+print(DISCOVERY_PORT)
+
 
 def parseModules(jsonModules):
-    print jsonModules
+    print(jsonModules)
     modules = json.loads(jsonModules)
-    print modules
+    print(modules)
     for module in modules:
-        print "Starting ", module['type']
+        print("Starting ", module['type'])
         subprocess.Popen(["python", module['type'] + "Server.py"])
 
 
@@ -47,7 +48,7 @@ class myHandler(BaseHTTPRequestHandler):
         self.end_headers()
 
         # Start modules according to the core server's request
-        print self.path
+        print(self.path)
 
         # Respond to core server
         self.wfile.write("Modules started")
@@ -60,10 +61,10 @@ def startServer():
     try:
         # Create web server and define the request handler
         server = HTTPServer(("", int(DISCOVERY_PORT)), myHandler)
-        print "Started httpserver on port", DISCOVERY_PORT
+        print("Started httpserver on port", DISCOVERY_PORT)
         server.serve_forever()
     except KeyboardInterrupt:
-        print "Shutting down..."
+        print("Shutting down...")
         server.socket.close()
 
 
@@ -74,7 +75,7 @@ def getHosts():
         cmd = "arp -a | grep -v incomplete | sed 's/^.*(//g' | sed 's/).*//g'"
         return shlex.split(subprocess.check_output(cmd, shell=True))
     except:
-        print "Error finding Cosmos Cloud"
+        print("Error finding Cosmos Cloud")
 
 
 def netcat(host):
@@ -85,7 +86,7 @@ def netcat(host):
     except subprocess.CalledProcessError:
         pass
     except:
-        print "Unknown Error"
+        print("Unknown Error")
         raise
 
 
@@ -94,23 +95,24 @@ cloudFile = "coreserver"
 if os.path.isfile(cloudFile):
     f = open(cloudFile, 'r')
     coreserver = f.read()
-    print coreserver
+    print(coreserver)
     f.close()
     requestModules(coreserver)
 else:
     hostFound = False
     while not hostFound:
-        print "Looking for Cloud..."
+        print("Looking for Cloud...")
         # Get list of hosts from `arp` with valid IPs
         hosts = getHosts()
-        print hosts
+        print(hosts)
 
         # Check each host for DISCOVERY_PORT
         for host in hosts:
             try:
-                print host
+                print(host)
                 # Netcat the host and check for success
-                if not hostFound and (netcat(host).find("succeeded!") != -1 or netcat(host).find("open") != -1):
+                if not hostFound and (netcat(host).find("succeeded!") != -1
+                                      or netcat(host).find("open") != -1):
                     # TODO: Check that this is not a random server
                     hostFound = True
                     print("The Cloud is located at %s" % (host))

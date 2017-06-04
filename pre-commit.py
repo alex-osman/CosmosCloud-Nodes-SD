@@ -15,7 +15,6 @@ import sys
 import subprocess
 import ConfigParser
 
-
 # available settings list
 AVAILABLE_SETTINGS = (
     'exclude', 'filename', 'select', 'ignore', 'max-line-length', 'count',
@@ -47,9 +46,9 @@ def parse_settings(config_file):
     try:
         config = ConfigParser.ConfigParser()
         config.read(config_file)
-    except ConfigParser.MissingSectionHeaderError, e:
-        print "ERROR: project lint config file is broken:\n"
-        print repr(e)
+    except ConfigParser.MissingSectionHeaderError as e:
+        print("ERROR: project lint config file is broken:\n")
+        print(repr(e))
         sys.exit(1)
 
     # read project lint settings for pep8 and flake8
@@ -62,8 +61,8 @@ def parse_settings(config_file):
                     else:
                         settings[linter].append("--%s" % key)
                 else:
-                    print "WARNING: unknown %s linter config: %s" % (
-                        linter, key)
+                    print("WARNING: unknown %s linter config: %s" % (
+                        linter, key))
         except ConfigParser.NoSectionError:
             pass
 
@@ -111,7 +110,7 @@ def main():
     """
     files = get_changed_files()
     if not files:
-        print "Python lint: %(yellow)sSKIP%(off)s" % COLOR
+        print("Python lint: %(yellow)sSKIP%(off)s" % COLOR)
         return
 
     config_file = os.path.join(os.path.abspath(os.curdir), '.pep8')
@@ -127,14 +126,14 @@ def main():
             errors.append(err)
 
     if not errors:
-        print "Python lint: %(green)sOK%(off)s" % COLOR
+        print("Python lint: %(green)sOK%(off)s" % COLOR)
         return
 
-    print "Python lint: %(red)sFAIL%(off)s" % COLOR
-    print
-    print "\n".join(sorted(errors))
-    print
-    print "Aborting commit due to python lint errors."
+    print("Python lint: %(red)sFAIL%(off)s" % COLOR)
+    print()
+    print("\n".join(sorted(errors)))
+    print()
+    print("Aborting commit due to python lint errors.")
     sys.exit(1)
 
 
