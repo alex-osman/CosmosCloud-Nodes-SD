@@ -1,42 +1,12 @@
 #!/usr/bin/python
 
-import os
 from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer
+from indicatorFunctions import changeColor, changeStyle, isPi
 
-isPi = os.getenv('IS_PI', False) is not False
-
-
-if isPi:
-    import SmartHome
 PORT_NUMBER = 8081
 style = "off"
 colors = [0, 0, 0]
 
-
-def changeColor(colors_):
-    global colors
-    colors = colors_
-    if isPi:
-        rgb.changeColor(colors)
-    else:
-        print("rgb::color ", colors)
-
-
-def changeStyle(style_):
-    global style
-    global colors
-    print "style: ", style_
-    style = style_
-    if isPi:
-        if style == 'off':
-            print "Turning off!"
-            rgb.off()
-        elif style == 'pulse':
-            pass  # must implement pulse
-        elif style == 'on':
-            rgb.changeColor(colors)
-    else:
-        print("rgb::style", style)
 
 
 # This handles HTTP Requests
@@ -62,7 +32,7 @@ class myHandler(BaseHTTPRequestHandler):
             changeStyle(args[0])
             changeColor([int(args[1]), int(args[2]), int(args[3])])
         else:
-            print "Unknown path"
+            print("Unknown path")
 
         self.wfile.write("{\n\tstyle: '" + style + "',\n\trgb: [" +
                          ', '.join(map(str, colors)) + "]\n}\n")
@@ -73,7 +43,7 @@ class myHandler(BaseHTTPRequestHandler):
 try:
     # Create web server and define the request handler
     server = HTTPServer(('', PORT_NUMBER), myHandler)
-    print 'Started httpserver on port ', PORT_NUMBER
+    print('Started httpserver on port ', PORT_NUMBER)
     if isPi:
         gpio = SmartHome.Gpio()
         rgb = SmartHome.rgb([26, 19, 13])
@@ -81,5 +51,5 @@ try:
 
 
 except KeyboardInterrupt:
-    print '^C received, shutting down the web server'
+    print('^C received, shutting down the web server')
     server.socket.close()
