@@ -1,13 +1,29 @@
 #!/usr/bin/python
 
+import os
 from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer
-from indicatorFunctions import changeColor, changeStyle, isPi
+
+isPi = True
 
 if isPi:
     import SmartHome
 PORT_NUMBER = 8081
 style = "off"
 colors = [0, 0, 0]
+
+def changeColor(colors_):
+	global colors
+	colors = colors_
+	rgb.changeColor(colors)
+
+def changeStyle(style_):
+	global style
+	global colors
+	style = style_
+	if style == 'off':
+		rgb.off()
+	elif style == 'on':
+		rgb.changeColor(colors)
 
 
 # This handles HTTP Requests
@@ -35,7 +51,7 @@ class myHandler(BaseHTTPRequestHandler):
         else:
             print("Unknown path")
 
-        self.wfile.write("{\n\tstyle: '" + style + "',\n\trgb: [" +
+        self.wfile.write("{\n\t\"style\": \"" + style + "\",\n\t\"rgb\": [" +
                          ', '.join(map(str, colors)) + "]\n}\n")
         # self.wfile.write(rgb.brightness)
         return

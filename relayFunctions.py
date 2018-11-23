@@ -2,7 +2,7 @@
 
 
 # Set pi to false when Pi is unavailable
-isPi = False
+isPi = True
 
 if isPi is True:
     import SmartHome

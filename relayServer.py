@@ -4,6 +4,7 @@ from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer
 from relayFunctions import relayToggle, relayOff, relayOn, isPi
 
 # Import the smarthome module when if Pi is on
+isPi = True
 if isPi is True:
     import SmartHome
 
@@ -68,8 +69,8 @@ class myHandler(BaseHTTPRequestHandler):
         else:
             print ("none")
 
-        # if isPi is True:
-        #     self.wfile.write("Relay Status: " + relay.status())
+        if isPi is True:
+            self.wfile.write(relay.status())
         return
 
 
